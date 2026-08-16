@@ -72,7 +72,7 @@ create table if not exists restaurant_settings (
   address text,
   phone text,
   opening_hours text,
-  primary_color text default '#e8590c',
+  primary_color text default '#a51d24',
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );

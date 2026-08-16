@@ -31,9 +31,9 @@ export default function ProductCard({ product, onAdd, onOpenDetail }: ProductCar
       onKeyDown={(e) => {
         if (e.key === "Enter") onOpenDetail(product);
       }}
-      className="flex gap-3 rounded-card border border-border bg-surface p-3 text-left active:bg-white cursor-pointer"
+      className="flex gap-3.5 rounded-[18px] border border-border bg-surface p-3.5 text-left shadow-card transition-colors active:bg-primary-tint/40 cursor-pointer"
     >
-      <div className="relative h-24 w-24 flex-shrink-0 overflow-hidden rounded-[14px] bg-white">
+      <div className="relative h-[88px] w-[88px] flex-shrink-0 overflow-hidden rounded-[14px] bg-background">
         {product.image_url ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -43,13 +43,13 @@ export default function ProductCard({ product, onAdd, onOpenDetail }: ProductCar
             className="h-full w-full object-cover"
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center text-ink-soft text-xs">
+          <div className="flex h-full w-full items-center justify-center text-ink-soft text-[10.5px]">
             fără foto
           </div>
         )}
         {!product.available && (
           <div className="absolute inset-0 flex items-center justify-center bg-black/55">
-            <span className="text-[11px] font-semibold uppercase tracking-wide text-white">
+            <span className="text-[10.5px] font-semibold uppercase tracking-wide text-white">
               Epuizat
             </span>
           </div>
@@ -57,22 +57,22 @@ export default function ProductCard({ product, onAdd, onOpenDetail }: ProductCar
       </div>
 
       <div className="flex min-w-0 flex-1 flex-col">
-        <h3 className="font-display text-[15px] font-semibold leading-snug truncate">
+        <h3 className="font-display text-[15.5px] font-semibold leading-snug truncate text-ink">
           {product.name}
         </h3>
         {product.description && (
-          <p className="mt-0.5 text-[13px] leading-snug text-ink-soft line-clamp-2">
+          <p className="mt-1 text-[12.5px] leading-snug text-ink-soft line-clamp-2">
             {product.description}
           </p>
         )}
         {product.ingredients && (
-          <p className="mt-1 text-[11.5px] leading-snug text-ink-soft/80 line-clamp-1 italic">
+          <p className="mt-1 text-[11px] leading-snug text-ink-soft/70 line-clamp-1">
             {product.ingredients}
           </p>
         )}
 
-        <div className="mt-2 flex items-center justify-between">
-          <span className="font-display text-[15px] font-semibold text-primary">
+        <div className="mt-2.5 flex items-center justify-between">
+          <span className="font-display text-[16px] font-semibold text-primary">
             {formatLei(product.price)}
           </span>
 
@@ -80,21 +80,25 @@ export default function ProductCard({ product, onAdd, onOpenDetail }: ProductCar
             disabled={!product.available}
             onClick={handleAddClick}
             className={[
-              "rounded-pill px-3.5 py-1.5 text-[12.5px] font-semibold transition-all active:scale-95",
+              "flex items-center gap-1 rounded-pill px-3.5 py-1.5 text-[12.5px] font-semibold transition-all active:scale-95",
               product.available
                 ? justAdded
                   ? "bg-success text-white"
-                  : "bg-ink text-white"
+                  : "bg-primary text-white hover:bg-primary-dark"
                 : "bg-border text-ink-soft cursor-not-allowed",
             ].join(" ")}
           >
-            {!product.available
-              ? "Epuizat"
-              : justAdded
-              ? "Adăugat ✓"
-              : hasOptions
-              ? "Alege"
-              : "Adaugă"}
+            {!product.available ? (
+              "Epuizat"
+            ) : justAdded ? (
+              "Adăugat ✓"
+            ) : hasOptions ? (
+              "Alege"
+            ) : (
+              <>
+                <span className="text-[14px] leading-none">+</span> Adaugă
+              </>
+            )}
           </button>
         </div>
       </div>

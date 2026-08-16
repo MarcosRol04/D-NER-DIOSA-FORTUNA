@@ -138,7 +138,7 @@ export default function ProductOptionsSheet({
                       key={choice.id}
                       className={[
                         "flex items-center justify-between rounded-[12px] border px-3.5 py-2.5 text-[14px] cursor-pointer",
-                        checked ? "border-primary bg-orange-50" : "border-border",
+                        checked ? "border-primary bg-primary-tint" : "border-border",
                       ].join(" ")}
                     >
                       <span className="flex items-center gap-2.5">

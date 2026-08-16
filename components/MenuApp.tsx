@@ -9,12 +9,13 @@ import {
   CartItem,
   SelectedOption,
 } from "@/lib/types";
-import { addToCart, buildLineId, cartCount, clearCart, readCart, updateQuantity } from "@/lib/cart";
+import { addToCart, buildLineId, cartCount, cartTotal, clearCart, readCart, updateQuantity } from "@/lib/cart";
 import Header from "./Header";
 import CategoryNav from "./CategoryNav";
 import ProductList from "./ProductList";
 import ProductOptionsSheet from "./ProductOptionsSheet";
 import CartDrawer from "./CartDrawer";
+import FloatingCartBar from "./FloatingCartBar";
 import WaiterScreen from "./WaiterScreen";
 import EmptyState from "./EmptyState";
 
@@ -144,6 +145,14 @@ export default function MenuApp({
             setCartOpen(false);
             setWaiterOpen(true);
           }}
+        />
+      )}
+
+      {!cartOpen && !waiterOpen && (
+        <FloatingCartBar
+          count={cartCount(cart)}
+          total={cartTotal(cart)}
+          onOpen={() => setCartOpen(true)}
         />
       )}
 

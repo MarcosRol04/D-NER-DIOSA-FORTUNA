@@ -7,6 +7,8 @@ const config: Config = {
       colors: {
         primary: "var(--primary-color)",
         "primary-dark": "var(--primary-dark)",
+        "primary-tint": "var(--primary-tint)",
+        accent: "var(--accent-color)",
         background: "var(--background-color)",
         surface: "var(--surface-color)",
         ink: "var(--text-color)",

@@ -1,4 +1,4 @@
-"use client";
+  "use client";
 
 import { Category } from "@/lib/types";
 
@@ -12,7 +12,7 @@ export default function CategoryNav({ categories, activeId, onSelect }: Category
   if (categories.length === 0) return null;
 
   return (
-    <div className="sticky top-[61px] z-20 bg-background border-b border-border">
+    <div className="sticky top-[65px] z-20 bg-background/95 backdrop-blur border-b border-border">
       <div className="mx-auto flex max-w-2xl gap-2 overflow-x-auto no-scrollbar px-4 py-3">
         {categories.map((cat) => {
           const active = cat.id === activeId;
@@ -21,10 +21,10 @@ export default function CategoryNav({ categories, activeId, onSelect }: Category
               key={cat.id}
               onClick={() => onSelect(cat.id)}
               className={[
-                "flex-shrink-0 rounded-pill px-4 py-2 text-[14px] font-medium transition-colors whitespace-nowrap",
+                "flex-shrink-0 rounded-pill px-4 py-2 text-[13.5px] font-medium transition-colors whitespace-nowrap border",
                 active
-                  ? "bg-primary text-white"
-                  : "bg-surface text-ink-soft border border-border",
+                  ? "bg-primary text-white border-primary"
+                  : "bg-surface text-ink-soft border-border hover:border-primary/40",
               ].join(" ")}
             >
               {cat.name}
