@@ -8,9 +8,15 @@ type ProductListProps = {
   products: Product[];
   subcategories: Subcategory[];
   onAdd: (product: Product) => void;
+  onOpenDetail: (product: Product) => void;
 };
 
-export default function ProductList({ products, subcategories, onAdd }: ProductListProps) {
+export default function ProductList({
+  products,
+  subcategories,
+  onAdd,
+  onOpenDetail,
+}: ProductListProps) {
   if (products.length === 0) {
     return (
       <EmptyState
@@ -33,7 +39,7 @@ export default function ProductList({ products, subcategories, onAdd }: ProductL
       {withoutSubcategory.length > 0 && (
         <div className="space-y-3">
           {withoutSubcategory.map((p) => (
-            <ProductCard key={p.id} product={p} onAdd={onAdd} />
+            <ProductCard key={p.id} product={p} onAdd={onAdd} onOpenDetail={onOpenDetail} />
           ))}
         </div>
       )}
@@ -44,7 +50,7 @@ export default function ProductList({ products, subcategories, onAdd }: ProductL
             {sub.name}
           </h2>
           {items.map((p) => (
-            <ProductCard key={p.id} product={p} onAdd={onAdd} />
+            <ProductCard key={p.id} product={p} onAdd={onAdd} onOpenDetail={onOpenDetail} />
           ))}
         </div>
       ))}

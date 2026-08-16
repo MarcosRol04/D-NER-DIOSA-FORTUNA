@@ -68,9 +68,9 @@ export default function ProductOptionsSheet({
   const unitPrice =
     product.price + selectedOptions.reduce((sum, o) => sum + o.price_delta, 0);
 
-  const canConfirm = groups
-    .filter((g) => g.required)
-    .every((g) => (selections[g.id] ?? []).length > 0);
+  const canConfirm =
+    product.available &&
+    groups.filter((g) => g.required).every((g) => (selections[g.id] ?? []).length > 0);
 
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/40">
@@ -89,8 +89,37 @@ export default function ProductOptionsSheet({
         </div>
 
         <div className="px-5 py-4 space-y-5">
+          {product.image_url && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={product.image_url}
+              alt={product.name}
+              className="h-48 w-full rounded-[16px] object-cover"
+            />
+          )}
+
+          <div className="flex items-baseline justify-between">
+            <span className="font-display text-[18px] font-semibold text-primary">
+              {formatLei(product.price)}
+            </span>
+            {!product.available && (
+              <span className="text-[12px] font-semibold uppercase tracking-wide text-danger">
+                Epuizat
+              </span>
+            )}
+          </div>
+
           {product.description && (
             <p className="text-[13.5px] text-ink-soft">{product.description}</p>
+          )}
+
+          {product.ingredients && (
+            <div>
+              <h3 className="mb-1 text-[13px] font-semibold uppercase tracking-wide text-ink-soft">
+                Ingrediente
+              </h3>
+              <p className="text-[13.5px] leading-relaxed text-ink">{product.ingredients}</p>
+            </div>
           )}
 
           {groups.map((group) => (

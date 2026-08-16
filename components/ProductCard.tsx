@@ -7,13 +7,15 @@ import { formatLei } from "@/lib/format";
 type ProductCardProps = {
   product: Product;
   onAdd: (product: Product) => void;
+  onOpenDetail: (product: Product) => void;
 };
 
-export default function ProductCard({ product, onAdd }: ProductCardProps) {
+export default function ProductCard({ product, onAdd, onOpenDetail }: ProductCardProps) {
   const [justAdded, setJustAdded] = useState(false);
   const hasOptions = (product.option_groups?.length ?? 0) > 0;
 
-  function handleClick() {
+  function handleAddClick(e: React.MouseEvent) {
+    e.stopPropagation();
     onAdd(product);
     if (!hasOptions) {
       setJustAdded(true);
@@ -22,7 +24,15 @@ export default function ProductCard({ product, onAdd }: ProductCardProps) {
   }
 
   return (
-    <div className="flex gap-3 rounded-card border border-border bg-surface p-3">
+    <div
+      onClick={() => onOpenDetail(product)}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter") onOpenDetail(product);
+      }}
+      className="flex gap-3 rounded-card border border-border bg-surface p-3 text-left active:bg-white cursor-pointer"
+    >
       <div className="relative h-24 w-24 flex-shrink-0 overflow-hidden rounded-[14px] bg-white">
         {product.image_url ? (
           // eslint-disable-next-line @next/next/no-img-element
@@ -68,7 +78,7 @@ export default function ProductCard({ product, onAdd }: ProductCardProps) {
 
           <button
             disabled={!product.available}
-            onClick={handleClick}
+            onClick={handleAddClick}
             className={[
               "rounded-pill px-3.5 py-1.5 text-[12.5px] font-semibold transition-all active:scale-95",
               product.available

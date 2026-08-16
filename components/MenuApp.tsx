@@ -35,7 +35,7 @@ export default function MenuApp({
     categories[0]?.id ?? null
   );
   const [cart, setCart] = useState<CartItem[]>([]);
-  const [optionsProduct, setOptionsProduct] = useState<Product | null>(null);
+  const [detailProduct, setDetailProduct] = useState<Product | null>(null);
   const [cartOpen, setCartOpen] = useState(false);
   const [waiterOpen, setWaiterOpen] = useState(false);
 
@@ -53,7 +53,7 @@ export default function MenuApp({
   function handleAdd(product: Product) {
     const hasOptions = (product.option_groups?.length ?? 0) > 0;
     if (hasOptions) {
-      setOptionsProduct(product);
+      setDetailProduct(product);
       return;
     }
     addToCart({
@@ -68,20 +68,20 @@ export default function MenuApp({
   }
 
   function handleConfirmOptions(selected: SelectedOption[], quantity: number) {
-    if (!optionsProduct) return;
+    if (!detailProduct) return;
     const unitPrice =
-      optionsProduct.price + selected.reduce((s, o) => s + o.price_delta, 0);
+      detailProduct.price + selected.reduce((s, o) => s + o.price_delta, 0);
     addToCart({
-      line_id: buildLineId(optionsProduct.id, selected),
-      product_id: optionsProduct.id,
-      name: optionsProduct.name,
+      line_id: buildLineId(detailProduct.id, selected),
+      product_id: detailProduct.id,
+      name: detailProduct.name,
       unit_price: unitPrice,
-      base_price: optionsProduct.price,
-      image_url: optionsProduct.image_url,
+      base_price: detailProduct.price,
+      image_url: detailProduct.image_url,
       selected_options: selected,
       quantity,
     });
-    setOptionsProduct(null);
+    setDetailProduct(null);
   }
 
   const activeProducts = products.filter((p) => p.category_id === activeCategory);
@@ -121,14 +121,15 @@ export default function MenuApp({
             products={activeProducts}
             subcategories={activeSubcategories}
             onAdd={handleAdd}
+            onOpenDetail={(p) => setDetailProduct(p)}
           />
         )}
       </main>
 
-      {optionsProduct && (
+      {detailProduct && (
         <ProductOptionsSheet
-          product={optionsProduct}
-          onClose={() => setOptionsProduct(null)}
+          product={detailProduct}
+          onClose={() => setDetailProduct(null)}
           onConfirm={handleConfirmOptions}
         />
       )}
