@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Identitate vizuală DÖNER DIOSA FORTUNA */
+  --primary-color: #e8590c;      /* portocaliu principal (brand) */
+  --primary-dark: #b8420a;       /* portocaliu pentru hover/active */
+  --background-color: #ffffff;   /* fundal general */
+  --surface-color: #fdfaf7;      /* fundal carduri / secțiuni */
+  --text-color: #17140f;         /* text principal / titluri */
+  --text-soft-color: #6b6258;    /* text secundar */
+  --border-color: #ece5db;       /* linii, separatoare */
+  --success-color: #2f8f4e;
+  --danger-color: #c1361f;
+
+  --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  background: var(--background-color);
+  color: var(--text-color);
+  font-family: var(--font-body);
+}
+
+h1,
+h2,
+h3,
+.font-display {
+  font-family: var(--font-display);
+}
+
+::selection {
+  background: var(--primary-color);
+  color: #fff;
+}
+
+/* Bară de categorii — scroll orizontal fără bară vizibilă */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@keyframes pop-in {
+  0% {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-pop {
+  animation: pop-in 0.18s ease-out;
+}
+
+@keyframes float-up {
+  0% {
+    transform: translateY(6px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-float-up {
+  animation: float-up 0.22s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-pop,
+  .animate-float-up {
+    animation: none;
+  }
+}
